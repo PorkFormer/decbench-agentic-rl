@@ -55,6 +55,12 @@ dev = [
     "ruff>=0.1",
     "mypy>=1.0",
 ]
+# ida-agent backend: the Claude Agent SDK runtime (the agent loop itself runs
+# through the `claude` CLI, which must be on PATH). Headless IDA (idalib) is
+# installed separately from the IDA Pro tree under tools/ — see README.zh.md.
+agent = [
+    "claude-agent-sdk>=0.2",
+]
 
 [project.scripts]
 decbench = "decbench.cli:main"

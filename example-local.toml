@@ -1,0 +1,12 @@
+name = "example"
+version = "1.0"
+remote_type = "local"
+local_path = "tests/example_project"
+package_dir = "."
+source_dir = "."
+make_cmd = "make"
+
+[compilation]
+optimization_levels = ["O0"]
+base_flags = ["-g", "-fno-builtin", "-save-temps=obj"]
+c_compiler = "gcc"

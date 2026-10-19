@@ -1,0 +1,103 @@
+defaults:
+  - ppo_trainer
+  - _self_
+
+hydra:
+  run:
+    dir: ${oc.env:DECBENCH_RL_RUN}/hydra
+  searchpath:
+    - pkg://verl.trainer.config
+
+algorithm:
+  adv_estimator: grpo
+  use_kl_in_reward: false
+
+data:
+  train_files: ${oc.env:DECBENCH_RL_DATASET}/train.parquet
+  val_files: ${oc.env:DECBENCH_RL_DATASET}/validation.parquet
+  train_batch_size: 2
+  max_prompt_length: 2048
+  max_response_length: 2048
+  filter_overlong_prompts: true
+  truncation: error
+  return_raw_chat: true
+  apply_chat_template_kwargs:
+    enable_thinking: false
+
+actor_rollout_ref:
+  model:
+    path: ${oc.env:DECBENCH_RL_MODEL,models/Qwen/Qwen3.5-4B}
+    use_remove_padding: false
+    enable_gradient_checkpointing: true
+    use_fused_kernels: false
+    override_config:
+      attn_implementation: sdpa
+  actor:
+    strategy: fsdp2
+    ppo_mini_batch_size: 2
+    ppo_micro_batch_size_per_gpu: 1
+    use_dynamic_bsz: false
+    use_kl_loss: false
+    entropy_coeff: 0
+    use_torch_compile: false
+    optim:
+      lr: 1.0e-6
+    fsdp_config:
+      model_dtype: fp32
+      param_offload: true
+      optimizer_offload: true
+      offload_policy: true
+      entropy_from_logits_with_chunking: true
+      use_torch_compile: false
+  rollout:
+    name: vllm
+    mode: async
+    tensor_model_parallel_size: 2
+    gpu_memory_utilization: 0.45
+    n: 2
+    temperature: 0.8
+    top_p: 0.95
+    top_k: 20
+    max_model_len: 4096
+    max_num_batched_tokens: 4096
+    max_num_seqs: 4
+    enforce_eager: true
+    enable_prefix_caching: false
+    calculate_log_probs: true
+    log_prob_micro_batch_size_per_gpu: 1
+    engine_kwargs:
+      vllm:
+        language_model_only: true
+    agent:
+      num_workers: 1
+      default_agent_loop: decbench_ida
+      agent_loop_config_path: ${oc.env:DECBENCH_RL_DATASET}/agent.yaml
+    multi_turn:
+      enable: true
+      format: qwen3_coder
+      max_assistant_turns: 12
+      max_parallel_calls: 1
+      max_tool_response_length: 6000
+    val_kwargs:
+      n: 1
+      do_sample: false
+
+trainer:
+  project_name: decbench-verl
+  experiment_name: qwen35-4b-byte-proxy
+  logger: [console]
+  nnodes: 1
+  n_gpus_per_node: 4
+  total_epochs: 1
+  total_training_steps: 1
+  val_before_train: false
+  test_freq: -1
+  save_freq: 1
+  resume_mode: disable
+  default_local_dir: ${oc.env:DECBENCH_RL_RUN}/checkpoints
+  rollout_data_dir: ${oc.env:DECBENCH_RL_RUN}/rollouts
+  validation_data_dir: ${oc.env:DECBENCH_RL_RUN}/validation
+
+ray_kwargs:
+  ray_init:
+    num_cpus: 16

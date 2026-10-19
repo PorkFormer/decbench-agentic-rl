@@ -159,6 +159,7 @@ _FLAG_RE = re.compile(
 def producer_flags(path: Path) -> list[str]:
     """Extract the original codegen flags (-m*/-march/-O*) from the DWARF producer.
 
+    Use the first producer with codegen flags, skipping assembly startup units.
     These let byte_match recompile the same way the source was compiled.
     """
     try:
@@ -171,7 +172,9 @@ def producer_flags(path: Path) -> list[str]:
                 continue
             text = prod.value.decode() if isinstance(prod.value, bytes) else str(prod.value)
             flags = [m.group(1).strip() for m in _FLAG_RE.finditer(text)]
-            return [f for f in flags if f and not f.startswith("-masm")]
+            flags = [f for f in flags if f and not f.startswith("-masm")]
+            if flags:
+                return flags
     except Exception:
         pass
     return []

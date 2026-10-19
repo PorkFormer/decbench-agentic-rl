@@ -37,6 +37,7 @@ from pathlib import Path
 if multiprocessing.get_start_method(allow_none=True) != "spawn":
     multiprocessing.set_start_method("spawn", force=True)
 
+import decbench.decompilers  # noqa: F401,E402
 import decbench.metrics  # noqa: F401,E402
 from decbench.decompilers.limits import (  # noqa: E402
     BINARY_MEMORY_LIMIT_BYTES,
@@ -221,24 +222,32 @@ def _stripped_copy(binary: Path, strip_dir: Path) -> Path:
     (DWARF types/vars inflate type_match; symbols hand them function boundaries
     and names). We compile with ``-g`` for the evaluation ground truth, but the
     decompiler only ever gets this stripped copy (same filename, so the artifact
-    naming/stem is unchanged). Cached by mtime. ``strip --strip-all`` handles ELF
-    of any arch and PE (BFD); we fall back through objcopy variants.
+    naming/stem is unchanged). Cached copies are verified against the original
+    code and checked for debug/symbol leftovers. Strip failures abort the task.
     """
+    from decbench.evalkit import EvalKitError
+    from decbench.evalkit.export import _strip_into, _verify_strip
+    from decbench.utils.blinding import validate_stripped_elf
+
+    def verify(path: Path) -> None:
+        _verify_strip(binary, path)
+        info = binfmt.detect(path)
+        if info is not None and info.fmt == "elf":
+            validate_stripped_elf(path)
+
     strip_dir.mkdir(parents=True, exist_ok=True)
     out = strip_dir / binary.name
     if out.exists() and out.stat().st_mtime >= binary.stat().st_mtime:
-        return out
-    shutil.copy2(binary, out)
-    for cmd in (
-        ["strip", "--strip-all", str(out)],
-        ["objcopy", "--strip-all", str(out), str(out)],
-        ["objcopy", "--strip-debug", str(out), str(out)],
-    ):
         try:
-            if subprocess.run(cmd, capture_output=True).returncode == 0:
-                break
-        except Exception:  # noqa: BLE001
-            continue
+            verify(out)
+            return out
+        except (ValueError, EvalKitError):
+            pass
+    with tempfile.TemporaryDirectory(prefix="strip_", dir=strip_dir) as tmp:
+        candidate = Path(tmp) / binary.name
+        _strip_into(binary, candidate)
+        verify(candidate)
+        candidate.replace(out)
     return out
 
 
@@ -252,7 +261,8 @@ def _relabel_to_dwarf(
     address — renaming in BOTH the code (so GED's Joern parse keys by the right
     name) and the function key — and point eval at the UNSTRIPPED (DWARF) binary.
     This is pure bookkeeping so name-based eval/GED line up; the decompiler got no
-    help (its analysis ran on the stripped binary).
+    help (its analysis ran on the stripped binary). Failed target names are also
+    rebound so source-named coverage includes unsuccessful attempts.
     """
     from decbench.decompilers.raw import common
 
@@ -285,10 +295,7 @@ def _relabel_to_dwarf(
     for address in blocked_thumb_addresses:
         thumb_names.pop(address, None)
 
-    new_funcs: dict[str, object] = {}
-    dropped = 0
-    for fd in list(result.functions.values()):
-        addr = int(fd.address)
+    def binding_for(addr: int) -> tuple[int, str] | None:
         candidates = (addr,) if not base else (addr, addr + base)
         binding = next(
             (
@@ -307,6 +314,12 @@ def _relabel_to_dwarf(
                 ),
                 None,
             )
+        return binding
+
+    new_funcs: dict[str, object] = {}
+    dropped = 0
+    for fd in list(result.functions.values()):
+        binding = binding_for(int(fd.address))
         if binding is None:
             dropped += 1
             continue
@@ -323,6 +336,13 @@ def _relabel_to_dwarf(
         ):
             new_funcs[fd.name] = fd
     result.functions = new_funcs  # type: ignore[assignment]
+    source_names = set(addr2name.values())
+    failures = []
+    for name in result.decompiler.failed_functions:
+        match = re.fullmatch(r"(?:sub_|FUN_)([0-9a-fA-F]+)", name)
+        binding = binding_for(int(match[1], 16)) if match and name not in source_names else None
+        failures.append(binding[1] if binding is not None else name)
+    result.decompiler.failed_functions = failures
     result.binary_path = unstripped
     if dropped:
         result.decompiler.extra = {

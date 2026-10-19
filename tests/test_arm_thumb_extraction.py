@@ -178,3 +178,66 @@ def test_wrong_mode_is_silently_not_instruction_equivalent(
     sub_bytes, sub_asm = _EXPECTED["lcd_sub"]
 
     assert _disassemble_bytes(sub_bytes, _TEXT_BASE + 8, arm_mode) != sub_asm
+
+
+@pytest.mark.parametrize("opt", ["-O0", "-O2"])
+def test_byte_match_recovers_flags_after_assembly_startup(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, opt: str
+) -> None:
+    from decbench.metrics.byte_match import ByteMatchMetric
+    from decbench.models.decompilation import FunctionDecompilation
+
+    monkeypatch.setenv("DECBENCH_NO_CACHE", "1")
+    startup = tmp_path / "startup.S"
+    source = tmp_path / "fixture.c"
+    elf = tmp_path / "fixture.elf"
+    startup.write_text(
+        ".syntax unified\n.thumb\n.text\n.global _start\n"
+        ".type _start,%function\n.thumb_func\n_start:\n b .\n"
+    )
+    code = "int lcd_add(int a, int b) { int t = a + b; return t * 3; }"
+    source.write_text(code)
+    objects = []
+    for path in (startup, source):
+        obj = path.with_suffix(".o")
+        subprocess.run(
+            [
+                "arm-none-eabi-gcc",
+                "-mcpu=cortex-m4",
+                "-mthumb",
+                "-g",
+                opt,
+                "-c",
+                str(path),
+                "-o",
+                str(obj),
+            ],
+            check=True,
+            capture_output=True,
+        )
+        objects.append(str(obj))
+    subprocess.run(
+        [
+            "arm-none-eabi-gcc",
+            "-nostdlib",
+            "-Wl,--entry=_start",
+            f"-Wl,-Ttext={_TEXT_BASE:#x}",
+            *objects,
+            "-o",
+            str(elf),
+        ],
+        check=True,
+        capture_output=True,
+    )
+    dwarf = binfmt.dwarf_info(elf)
+    assert dwarf is not None
+    first = next(dwarf.iter_CUs()).get_top_DIE()
+    assert first.attributes["DW_AT_producer"].value.startswith(b"GNU AS")
+    flags = binfmt.producer_flags(elf)
+    assert "-mthumb" in flags
+    assert "-mcpu=cortex-m4" in flags
+    assert opt in flags
+    function = FunctionDecompilation(name="lcd_add", address=0, decompiled_code=code)
+    result = ByteMatchMetric().compute_for_function(function, original_binary_path=elf)
+    assert result.metadata["compilable"] is True
+    assert result.value == 1.0

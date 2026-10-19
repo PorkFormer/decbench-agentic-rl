@@ -17,6 +17,9 @@ with contextlib.suppress(ImportError):
 with contextlib.suppress(ImportError):
     from decbench.decompilers import llm_dec  # noqa: F401
 
+with contextlib.suppress(ImportError):
+    from decbench.decompilers import agent_ida  # noqa: F401
+
 __all__ = [
     "Decompiler",
     "DecompilerConfig",

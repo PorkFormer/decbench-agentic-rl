@@ -158,3 +158,12 @@ tests/example_project/*.s
 # LLM decompiler traces (prompt + transcript + CLI session log per function)
 /llm_traces/
 private/
+
+# bundled IDA Pro tree (958MB + hexrays license) — never commit
+# (nothing: bundled IDA tree lives under .tools/ together with the toolchains)
+.tools/
+
+# Local model weights and private agent transcripts
+/models/
+/trace/
+*.hexlic

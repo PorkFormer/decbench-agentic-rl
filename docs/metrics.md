@@ -289,7 +289,7 @@ otherwise; flags read from the DWARF producer), via `decbench/utils/binfmt.py`.
 Returns a non-scoring result (an **abstention**, not a 0) if that toolchain
 isn't installed — don't fake a wrong-arch recompile. Works on ELF and PE.
 
-### The two fairness passes (`cache_version="7"`)
+### The two fairness passes (`cache_version="8"`)
 
 Raw decompiler output rarely recompiles as-is (pseudo-types like
 `undefined4`, illegal tokens like `GLIBC_2.2.5::stderr`), so naive
@@ -323,7 +323,10 @@ before changing them, and bump `cache_version` if you do:
    varargs AL-zeroing from both listings.
 
 `binfmt.producer_flags` also carries codegen `-f` flags from the DWARF
-producer — dropping them made whole projects unwinnable. The metric still
+producer — dropping them made whole projects unwinnable. It skips producers
+without codegen flags, such as leading assembly startup units, so those units
+do not hide the C compiler's Thumb mode, CPU, and optimization flags. Version 8
+invalidates byte-match scores made before this correction. The metric still
 records `compilable` per function (the report's per-decompiler **Compiles
 rate**, rendered on the data page). Type recovery is measured separately by
 type_match, so fixing types to compile is fair.

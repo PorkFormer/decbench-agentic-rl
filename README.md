@@ -1,4 +1,20 @@
-# DecBench
+# DecBench Agentic RL
+
+Agentic reinforcement learning for decompilation, built on
+[DecBench](https://github.com/Noelo-Lab/decbench), IDA/Hex-Rays, and verl.
+The current training configuration uses Qwen3.5-4B with GRPO and a byte-match proxy reward.
+
+- [Training setup, portable paths, and validation (中文)](docs/verl-training.zh.md)
+- [IDA agent setup (中文)](README.zh.md)
+- [Fixed-sample evaluation (中文)](docs/ida-agent-evaluation.zh.md)
+
+Virtual environments, licensed decompiler installations, model weights, private traces,
+and experiment outputs are excluded from this repository. Recreate the environments
+and provide your own IDA installation and model weights after cloning.
+The recorded single-step training check uses synthetic tasks; it does not establish
+semantic correctness or improvement on held-out decompilation tasks.
+
+## Upstream DecBench
 
 <p align="center">
   <a href="https://decbench.com">
