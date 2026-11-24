@@ -1,0 +1,230 @@
+{
+  "training_verified": true,
+  "checks": {
+    "real_updates": true,
+    "checkpoints": true,
+    "fresh_process_restore": true,
+    "fixed_validation": true,
+    "ten_steps": true,
+    "reward_signal": true,
+    "no_infrastructure_failures": true,
+    "phase_exit_codes": true,
+    "native_updates": true,
+    "terminal_only": true,
+    "capacity_16k": true,
+    "structured_calls": true,
+    "timing_stages": true
+  },
+  "optimizer_updates_by_rank": {
+    "0": 10,
+    "1": 10,
+    "2": 10,
+    "3": 10
+  },
+  "validation": {
+    "0": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.49422439734277007,
+        "compilable_rate": 0.875,
+        "exact_match_rate": 0.09375,
+        "tool_turn_success_rate": 0.9733727810650887
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.7066035238959467,
+          "compilable_rate": 1.0,
+          "exact_match_rate": 0.14285714285714285,
+          "tool_turn_success_rate": 0.9857142857142858
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.2977406580347757,
+          "compilable_rate": 0.7142857142857143,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.9868421052631579
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.6044435215946844,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.9672131147540983
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.48559694872614334,
+          "compilable_rate": 1.0,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.9838709677419355
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.3740881032547699,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.9420289855072463
+        }
+      }
+    },
+    "10": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.5421401379795572,
+        "compilable_rate": 0.875,
+        "exact_match_rate": 0.125,
+        "tool_turn_success_rate": 0.9966666666666667
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.6267543859649123,
+          "compilable_rate": 0.8571428571428571,
+          "exact_match_rate": 0.14285714285714285,
+          "tool_turn_success_rate": 1.0
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.48610675039246465,
+          "compilable_rate": 1.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 1.0
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.5439882697947214,
+          "compilable_rate": 0.6666666666666666,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.984375
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.5053755144032922,
+          "compilable_rate": 1.0,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 1.0
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.5437122926093515,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 1.0
+        }
+      }
+    }
+  },
+  "byte_match_delta": 0.04791574063678711,
+  "validation_improved": true,
+  "infrastructure_failures": [],
+  "reward": "byte-match-v8-proxy-v1",
+  "semantic_equivalence_verified": false,
+  "protocol": "qwen35-native-v1",
+  "arm": "A",
+  "critic": false,
+  "process_advantage": false,
+  "quality_history": [
+    {
+      "step": 0,
+      "count": 32,
+      "byte_match": 0.49422439734277007,
+      "json_valid": 0.9968847352024922,
+      "schema_valid_rate": 0.9968847352024922,
+      "tool_execution_success_rate": 0.9719626168224299,
+      "structured_call_turns": 321,
+      "protocol_error_turns": 0,
+      "termination_turns": 17,
+      "compilable": 28,
+      "raw_compilable": 22,
+      "written": 31
+    },
+    {
+      "step": 1,
+      "count": 32,
+      "byte_match": 0.4409923956378431,
+      "json_valid": 1.0,
+      "schema_valid_rate": 1.0,
+      "tool_execution_success_rate": 0.9935064935064936,
+      "structured_call_turns": 308,
+      "protocol_error_turns": 0,
+      "termination_turns": 21,
+      "compilable": 26,
+      "raw_compilable": 25,
+      "written": 29
+    },
+    {
+      "step": 2,
+      "count": 32,
+      "byte_match": 0.4585391852606531,
+      "json_valid": 0.9967213114754099,
+      "schema_valid_rate": 0.9967213114754099,
+      "tool_execution_success_rate": 0.9967105263157895,
+      "structured_call_turns": 304,
+      "protocol_error_turns": 1,
+      "termination_turns": 20,
+      "compilable": 26,
+      "raw_compilable": 25,
+      "written": 28
+    },
+    {
+      "step": 5,
+      "count": 32,
+      "byte_match": 0.5200506898127114,
+      "json_valid": 0.996309963099631,
+      "schema_valid_rate": 0.996309963099631,
+      "tool_execution_success_rate": 1.0,
+      "structured_call_turns": 270,
+      "protocol_error_turns": 1,
+      "termination_turns": 26,
+      "compilable": 28,
+      "raw_compilable": 28,
+      "written": 31
+    },
+    {
+      "step": 10,
+      "count": 32,
+      "byte_match": 0.5421401379795572,
+      "json_valid": 1.0,
+      "schema_valid_rate": 1.0,
+      "tool_execution_success_rate": 0.9963636363636363,
+      "structured_call_turns": 275,
+      "protocol_error_turns": 0,
+      "termination_turns": 25,
+      "compilable": 28,
+      "raw_compilable": 27,
+      "written": 31
+    }
+  ],
+  "timing_stages": {
+    "worker_start": 384,
+    "worker_rpc": 4189,
+    "environment_init": 384,
+    "environment_step": 3704,
+    "environment_score": 768,
+    "worker_close": 384,
+    "environment_close": 384,
+    "worker_setup": 384,
+    "ida_initialize": 384,
+    "tool_execute": 3805,
+    "inline_compile_check": 1229,
+    "terminal_score": 384,
+    "snapshot_q_score": 1190,
+    "snapshot_c_compile": 1190,
+    "all_scoring": 384,
+    "ida_close": 384,
+    "environment_rpc": 5246,
+    "rollout_batch": 51,
+    "token_processing": 15612,
+    "model_engine": 3704,
+    "model_server": 3704,
+    "rollout_queue_wait": 384,
+    "model_request": 3704,
+    "trajectory_logging": 384,
+    "agent_interaction": 384,
+    "episode_lifecycle": 384,
+    "rollout_episode": 384,
+    "model_http_attempt": 3704
+  },
+  "readability_improvement_verified": false
+}

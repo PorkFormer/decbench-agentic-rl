@@ -1,0 +1,47 @@
+[
+  {
+    "step": 0,
+    "count": 32,
+    "byte_match": 0.27692647249567354,
+    "json_valid": 0.885558583106267,
+    "compilable": 15,
+    "raw_compilable": 11,
+    "written": 24
+  },
+  {
+    "step": 1,
+    "count": 32,
+    "byte_match": 0.253146322921245,
+    "json_valid": 0.8861111111111111,
+    "compilable": 16,
+    "raw_compilable": 12,
+    "written": 26
+  },
+  {
+    "step": 2,
+    "count": 32,
+    "byte_match": 0.3805258723092003,
+    "json_valid": 0.936231884057971,
+    "compilable": 22,
+    "raw_compilable": 14,
+    "written": 28
+  },
+  {
+    "step": 5,
+    "count": 32,
+    "byte_match": 0.44042813462936853,
+    "json_valid": 0.8073654390934845,
+    "compilable": 23,
+    "raw_compilable": 16,
+    "written": 30
+  },
+  {
+    "step": 10,
+    "count": 32,
+    "byte_match": 0.4880815323507779,
+    "json_valid": 0.8055555555555556,
+    "compilable": 22,
+    "raw_compilable": 17,
+    "written": 31
+  }
+]

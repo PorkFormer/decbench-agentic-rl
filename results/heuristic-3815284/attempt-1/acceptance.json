@@ -1,0 +1,275 @@
+{
+  "training_verified": true,
+  "checks": {
+    "real_updates": true,
+    "checkpoints": true,
+    "fresh_process_restore": true,
+    "fixed_validation": true,
+    "ten_steps": true,
+    "reward_signal": true,
+    "no_infrastructure_failures": true,
+    "phase_exit_codes": true,
+    "heuristic_updates": true,
+    "no_critic": true,
+    "capacity_16k": true
+  },
+  "optimizer_updates_by_rank": {
+    "0": 10,
+    "1": 10,
+    "2": 10,
+    "3": 10
+  },
+  "validation": {
+    "0": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.27692647249567354,
+        "compilable_rate": 0.46875,
+        "exact_match_rate": 0.0625,
+        "tool_turn_success_rate": 0.8501362397820164
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.23852376771604164,
+          "compilable_rate": 0.42857142857142855,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.9125
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.15584415584415584,
+          "compilable_rate": 0.2857142857142857,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.8095238095238095
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.2909080186361045,
+          "compilable_rate": 0.5,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.9285714285714286
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.44949494949494956,
+          "compilable_rate": 0.6666666666666666,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.9508196721311475
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.2764423076923077,
+          "compilable_rate": 0.5,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.6666666666666666
+        }
+      }
+    },
+    "10": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.4880815323507779,
+        "compilable_rate": 0.6875,
+        "exact_match_rate": 0.125,
+        "tool_turn_success_rate": 0.8055555555555556
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.5112781954887218,
+          "compilable_rate": 0.5714285714285714,
+          "exact_match_rate": 0.14285714285714285,
+          "tool_turn_success_rate": 0.8055555555555556
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.30383022774327123,
+          "compilable_rate": 0.5714285714285714,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.9285714285714286
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.6242413519694379,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.84375
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.5370039682539682,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.6571428571428571
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.4908963585434174,
+          "compilable_rate": 0.6666666666666666,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.7714285714285715
+        }
+      }
+    }
+  },
+  "byte_match_delta": 0.21115505985510435,
+  "validation_improved": true,
+  "infrastructure_failures": [],
+  "reward": "byte-match-v8-proxy-v1",
+  "semantic_equivalence_verified": false,
+  "arm": "A",
+  "critic": false,
+  "advantage_estimator": "heuristic-action-v1",
+  "heuristic_update_steps": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "invalid_positive_tokens": 27430,
+  "quality_stop": false,
+  "capacity_probe": [
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 56136519168,
+      "phase": "main",
+      "pid": 336219,
+      "rank": 0,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 87305084928,
+      "phase": "restore",
+      "pid": 440278,
+      "rank": 0,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 56136519168,
+      "phase": "main",
+      "pid": 336386,
+      "rank": 1,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 87305084928,
+      "phase": "restore",
+      "pid": 440432,
+      "rank": 1,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 56136519168,
+      "phase": "main",
+      "pid": 336389,
+      "rank": 2,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 87305083904,
+      "phase": "restore",
+      "pid": 440434,
+      "rank": 2,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 56136519168,
+      "phase": "main",
+      "pid": 336390,
+      "rank": 3,
+      "sequence_length": 16384
+    },
+    {
+      "forward_backward": true,
+      "kind": "capacity",
+      "optimizer_updates": 0,
+      "parameters_unchanged": true,
+      "peak_memory_bytes": 87305083904,
+      "phase": "restore",
+      "pid": 440436,
+      "rank": 3,
+      "sequence_length": 16384
+    }
+  ],
+  "quality_history": [
+    {
+      "step": 0,
+      "count": 32,
+      "byte_match": 0.27692647249567354,
+      "json_valid": 0.885558583106267,
+      "compilable": 15,
+      "raw_compilable": 11,
+      "written": 24
+    },
+    {
+      "step": 1,
+      "count": 32,
+      "byte_match": 0.253146322921245,
+      "json_valid": 0.8861111111111111,
+      "compilable": 16,
+      "raw_compilable": 12,
+      "written": 26
+    },
+    {
+      "step": 2,
+      "count": 32,
+      "byte_match": 0.3805258723092003,
+      "json_valid": 0.936231884057971,
+      "compilable": 22,
+      "raw_compilable": 14,
+      "written": 28
+    },
+    {
+      "step": 5,
+      "count": 32,
+      "byte_match": 0.44042813462936853,
+      "json_valid": 0.8073654390934845,
+      "compilable": 23,
+      "raw_compilable": 16,
+      "written": 30
+    },
+    {
+      "step": 10,
+      "count": 32,
+      "byte_match": 0.4880815323507779,
+      "json_valid": 0.8055555555555556,
+      "compilable": 22,
+      "raw_compilable": 17,
+      "written": 31
+    }
+  ]
+}

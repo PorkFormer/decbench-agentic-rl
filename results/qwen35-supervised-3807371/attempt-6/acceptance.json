@@ -1,0 +1,118 @@
+{
+  "training_verified": true,
+  "checks": {
+    "real_updates": true,
+    "checkpoints": true,
+    "fresh_process_restore": true,
+    "fixed_validation": true,
+    "ten_steps": true,
+    "reward_signal": true,
+    "no_infrastructure_failures": true,
+    "phase_exit_codes": true
+  },
+  "optimizer_updates_by_rank": {
+    "0": 10,
+    "1": 10,
+    "2": 10,
+    "3": 10
+  },
+  "validation": {
+    "0": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.35017876183676905,
+        "compilable_rate": 0.53125,
+        "exact_match_rate": 0.09375,
+        "tool_turn_success_rate": 0.8196286472148541
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.2260127931769723,
+          "compilable_rate": 0.2857142857142857,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.7976190476190477
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.07142857142857142,
+          "compilable_rate": 0.2857142857142857,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.8214285714285714
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.5502768549280177,
+          "compilable_rate": 0.6666666666666666,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.8194444444444444
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.47513597513597516,
+          "compilable_rate": 0.8333333333333334,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.8769230769230769
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.4951923076923077,
+          "compilable_rate": 0.6666666666666666,
+          "exact_match_rate": 0.16666666666666666,
+          "tool_turn_success_rate": 0.7916666666666666
+        }
+      }
+    },
+    "10": {
+      "overall": {
+        "count": 32,
+        "byte_match_mean": 0.0,
+        "compilable_rate": 0.0,
+        "exact_match_rate": 0.0,
+        "tool_turn_success_rate": 0.09895833333333333
+      },
+      "projects": {
+        "cleanflight": {
+          "count": 7,
+          "byte_match_mean": 0.0,
+          "compilable_rate": 0.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.08333333333333333
+        },
+        "e2fsprogs": {
+          "count": 7,
+          "byte_match_mean": 0.0,
+          "compilable_rate": 0.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.08333333333333333
+        },
+        "libexpat": {
+          "count": 6,
+          "byte_match_mean": 0.0,
+          "compilable_rate": 0.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.1388888888888889
+        },
+        "libopencm3": {
+          "count": 6,
+          "byte_match_mean": 0.0,
+          "compilable_rate": 0.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.08333333333333333
+        },
+        "tar": {
+          "count": 6,
+          "byte_match_mean": 0.0,
+          "compilable_rate": 0.0,
+          "exact_match_rate": 0.0,
+          "tool_turn_success_rate": 0.1111111111111111
+        }
+      }
+    }
+  },
+  "byte_match_delta": -0.35017876183676905,
+  "validation_improved": false,
+  "infrastructure_failures": [],
+  "reward": "byte-match-v8-proxy-v1",
+  "semantic_equivalence_verified": false
+}

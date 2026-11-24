@@ -1,0 +1,72 @@
+[
+  {
+    "step": 0,
+    "count": 32,
+    "byte_match": 0.49422439734277007,
+    "json_valid": 0.9968847352024922,
+    "schema_valid_rate": 0.9968847352024922,
+    "tool_execution_success_rate": 0.9719626168224299,
+    "structured_call_turns": 321,
+    "protocol_error_turns": 0,
+    "termination_turns": 17,
+    "compilable": 28,
+    "raw_compilable": 22,
+    "written": 31
+  },
+  {
+    "step": 1,
+    "count": 32,
+    "byte_match": 0.4409923956378431,
+    "json_valid": 1.0,
+    "schema_valid_rate": 1.0,
+    "tool_execution_success_rate": 0.9935064935064936,
+    "structured_call_turns": 308,
+    "protocol_error_turns": 0,
+    "termination_turns": 21,
+    "compilable": 26,
+    "raw_compilable": 25,
+    "written": 29
+  },
+  {
+    "step": 2,
+    "count": 32,
+    "byte_match": 0.4585391852606531,
+    "json_valid": 0.9967213114754099,
+    "schema_valid_rate": 0.9967213114754099,
+    "tool_execution_success_rate": 0.9967105263157895,
+    "structured_call_turns": 304,
+    "protocol_error_turns": 1,
+    "termination_turns": 20,
+    "compilable": 26,
+    "raw_compilable": 25,
+    "written": 28
+  },
+  {
+    "step": 5,
+    "count": 32,
+    "byte_match": 0.5200506898127114,
+    "json_valid": 0.996309963099631,
+    "schema_valid_rate": 0.996309963099631,
+    "tool_execution_success_rate": 1.0,
+    "structured_call_turns": 270,
+    "protocol_error_turns": 1,
+    "termination_turns": 26,
+    "compilable": 28,
+    "raw_compilable": 28,
+    "written": 31
+  },
+  {
+    "step": 10,
+    "count": 32,
+    "byte_match": 0.5421401379795572,
+    "json_valid": 1.0,
+    "schema_valid_rate": 1.0,
+    "tool_execution_success_rate": 0.9963636363636363,
+    "structured_call_turns": 275,
+    "protocol_error_turns": 0,
+    "termination_turns": 25,
+    "compilable": 28,
+    "raw_compilable": 27,
+    "written": 31
+  }
+]

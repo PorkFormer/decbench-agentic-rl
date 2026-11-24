@@ -1,0 +1,55 @@
+{
+  "check_kind": "scripted_real_ida_agentevolver_not_model_training",
+  "job_id": "3803079",
+  "tools_checked": [
+    "Edit",
+    "Read",
+    "Write",
+    "mcp__ida__decompile_function",
+    "mcp__ida__disassemble_function",
+    "mcp__ida__get_metadata",
+    "mcp__ida__get_xrefs_from",
+    "mcp__ida__get_xrefs_to",
+    "mcp__ida__read_bytes"
+  ],
+  "metadata": "file: target.bin\nplatform: Linux (ELF x86-64, 64-bit, little-endian)\nimage base: 0x400000\nfunctions: 22\nstripped: yes",
+  "ida_episode": "/fs1/home/zhushoufei/decbench-agentic-rl/results/setup/3803079/episodes/00ce04874c5e42dcb9e07fe719dcb1eb",
+  "ida_baseline": {
+    "score": 0.5294117647058824,
+    "reward_version": "byte-match-v8-proxy-v1",
+    "environment_version": "ida-mcp-1.1.0",
+    "calls": 10,
+    "status": "scored",
+    "compilable": true,
+    "metric_metadata": {
+      "compilable": true,
+      "fixup_iterations": 2,
+      "fixup_injected": 1,
+      "exact_match": false,
+      "jaccard_similarity": 0.5294117647058824,
+      "changed_lines": 8,
+      "original_size": 28,
+      "recompiled_size": 32,
+      "original_asm_lines": 12,
+      "recompiled_asm_lines": 14
+    }
+  },
+  "known_code": {
+    "score": 1.0,
+    "reward_version": "byte-match-v8-proxy-v1",
+    "environment_version": "ida-mcp-1.1.0",
+    "calls": 2,
+    "status": "scored",
+    "compilable": true,
+    "metric_metadata": {
+      "compilable": true,
+      "fixup_iterations": 1,
+      "fixup_injected": 0,
+      "exact_match": true,
+      "changed_lines": 0,
+      "original_size": 28,
+      "recompiled_size": 28
+    }
+  },
+  "training_verified": false
+}

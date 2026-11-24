@@ -1,0 +1,203 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__get_metadata",
+      "description": "Binary metadata: file name, platform (OS + binary format), architecture and bitness, image base, function count, stripped status.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__decompile_function",
+      "description": "Decompile one function. Returns C-like pseudocode.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "addr": {
+            "type": "string",
+            "description": "Hex address (e.g. \"0x1000\") or a name in the binary (e.g. \"sub_1000\", \"dword_1000\")"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Create the function at this address if IDA has none; use only after the same call without force failed (default false)"
+          }
+        },
+        "required": [
+          "addr"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__disassemble_function",
+      "description": "Disassemble one function, one instruction per line as \"address: mnemonic operands\". Known names (sub_1000, dword_1000, aText) replace raw operand values, and a referenced string's content is appended as ; \"text\". Long output is capped \u2014 pass offset to continue past a truncation.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "addr": {
+            "type": "string",
+            "description": "Hex address (e.g. \"0x1000\") or a name in the binary (e.g. \"sub_1000\", \"dword_1000\")"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of instructions to skip from the function start"
+          },
+          "length": {
+            "type": "integer",
+            "description": "Max instructions to return (default 4000)"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Create the function at this address if IDA has none; use only after the same call without force failed (default false)"
+          }
+        },
+        "required": [
+          "addr"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__get_xrefs_to",
+      "description": "All cross-references to one function or global: every call, jump, data read, and data write that targets it, each with the referencing address and the function containing that reference.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "addr": {
+            "type": "string",
+            "description": "Hex address (e.g. \"0x1000\") or a name in the binary (e.g. \"sub_1000\", \"dword_1000\")"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of entries to skip"
+          }
+        },
+        "required": [
+          "addr"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__get_xrefs_from",
+      "description": "All cross-references from one function: every call, jump, and global it reads or writes, each with the instruction address and the target's address and name.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "addr": {
+            "type": "string",
+            "description": "Hex address (e.g. \"0x1000\") or a name in the binary (e.g. \"sub_1000\", \"dword_1000\")"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of entries to skip"
+          }
+        },
+        "required": [
+          "addr"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mcp__ida__read_bytes",
+      "description": "Read raw bytes at an address as a hexdump: 16 bytes per line, hex values plus an ASCII column ('.' for non-printable). The containing segment is named (.bss bytes read as zeros \u2014 it has no file contents).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "addr": {
+            "type": "string",
+            "description": "Hex address (e.g. \"0x1000\") or a name in the binary (e.g. \"sub_1000\", \"dword_1000\")"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Number of bytes to read (1-512, default 64)"
+          }
+        },
+        "required": [
+          "addr"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "Read",
+      "description": "Read decompiled.c only.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_path"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "Write",
+      "description": "Replace decompiled.c, then receive compiler diagnostics.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_path",
+          "content"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "Edit",
+      "description": "Replace one unique literal occurrence in decompiled.c; receive compiler diagnostics.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          },
+          "old_string": {
+            "type": "string"
+          },
+          "new_string": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_path",
+          "old_string",
+          "new_string"
+        ]
+      }
+    }
+  }
+]
